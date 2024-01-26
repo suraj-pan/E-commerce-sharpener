@@ -44,10 +44,11 @@ const Cart = () => {
   return (
     <div>
       <div>Cart</div>
-      <div className='flex'>
-        <div className='border-b-black bottom-1'>ITEM</div>
-        <div>PRICE</div>
-        <div>QUANTITY</div>
+      <div className='flex gap-1'>
+        <div className='border-b-black '>ITEM</div>
+        <div className='border-b-black '></div>
+        <div className='border-b-black '>PRICE</div>
+        <div className='border-b-black '>QUANTITY</div>
       </div>
       {cartElements.map((pro,index)=>(
         <div key={index} className='flex gap-1'>
