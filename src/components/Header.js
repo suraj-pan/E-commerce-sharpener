@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
+import { NavLink,BrowserRouter } from 'react-router-dom';
 
 const Header = ({count}) => {
 
   return (
-    <div className='flex'>
-      <div className='flex gap-3'>
-        <div>HOME</div>
-        <div>STORE</div>
-        <div>ABOUT</div>
-      </div>
-      <div className='justify-end flex gap-2'><FaShoppingCart />{count}</div>
+   
+     <div className='flex bg-black justify-between items-center'>
+     <div></div>
+      <div className='flex gap-6 text-white '>
+      <NavLink to='/'>Home</NavLink>
+      <NavLink to='/store' >Store</NavLink>
+      <NavLink to='/about' >About</NavLink>     
+       </div>
+      <div className=' text-white'><FaShoppingCart />{count}</div>
     </div>
+ 
+   
   )
 }
 
-export default Header
+export default Header;
