@@ -1,32 +1,53 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, useCallback } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const Store = () => {
 
   const [movies,setmovies] = useState([]);
   const [loading,setloading] = useState(false);
 
-  const storeData =  async ()=>{
+
+
+  const storeData = useCallback( async ()=>{
     try {
       setloading(true);
-      const response = await fetch("https://swapi.dev/api/films");
+      const response = await fetch("https://movies-ada4d-default-rtdb.firebaseio.com/movies.json");
       const data = await response.json()
-      console.log(data.results)
-      
-      setmovies(data.results);
+      console.log(data)
+
+      const loadedMovies =[];
+
+      for(let key in data){
+        loadedMovies.push({
+          id:uuidv4(),
+          title:data[key].title,
+          openingText:data[key].openingText,
+          releaseDate:data[key].releaseDate
+        })
+      }
+
+      console.log(loadedMovies)
+      setmovies(loadedMovies);
       setloading(false);
     } catch (error) {
       console.error("error in getting data",error);
     }
+
+  },[])
+
+  const deleteHandler =(id)=>{
+      const newData = movies.filter(movie=>movie.id !== id);
+      setmovies(newData)
   }
 
-  
-  const handlefetchData = ()=>{
+
+  const handlefetchData = useCallback(()=>{
     storeData()
-  }
+  },[storeData]) 
 
   useEffect(() => {
-    storeData();
-  }, []);
+    handlefetchData();
+  }, [handlefetchData]);
 
   const [name,setname]=useState({title:"",openingText:"",releaseDate:""});
 
@@ -35,10 +56,13 @@ const Store = () => {
   const changeHandler =(e)=>{
      const  {name,value} = e.target;
      setname((prev)=>({...prev,[name]:value}));
-     console.log(name,value)
+    //  console.log(name,value)
   }
+
+
+
   const formHandler =(e)=>{
-    
+
     e.preventDefault()
     const formData ={
       title:name.title,
@@ -47,9 +71,23 @@ const Store = () => {
     }
 
     console.log(formData)
+    addMovieHandler(formData);
 
     setname({title:"",openingText:"",releaseDate:""})
     
+  }
+
+  const addMovieHandler = async(movie )=>{
+    const response = await fetch("https://movies-ada4d-default-rtdb.firebaseio.com/movies.json",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Add any additional headers if needed
+      },
+      body: JSON.stringify(movie),
+    })
+    const data = await response.json()
+    console.log(data)
   }
 
 
@@ -82,12 +120,13 @@ const Store = () => {
     </button>
     
     
-       </div>):(<div>
-        {movies.map((movie,index)=>(
-          <div key={index} >
+       </div>):(<div className='flex flex-col gap-3'>
+        {movies?.map((movie,index)=>(
+          <div key={movie.id} >
             <div>{movie.title}</div>
-            <div>{movie.opening_crawl}</div>
-            <div>{movie.release_date}</div>
+            <div>{movie.openingText}</div>
+            <div>{movie.releaseDate}</div>
+            <button onClick={()=>deleteHandler(movie.id)} >Delete</button>
           </div>
         ))}
        </div>)}
