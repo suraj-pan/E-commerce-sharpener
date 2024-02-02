@@ -12,6 +12,7 @@ const Header = ({count}) => {
       <NavLink to='/'>Home</NavLink>
       <NavLink to='/store' >Store</NavLink>
       <NavLink to='/about' >About</NavLink>     
+      <NavLink to='/contact' >Contact Us</NavLink>     
        </div>
       <div className=' text-white'><FaShoppingCart />{count}</div>
     </div>

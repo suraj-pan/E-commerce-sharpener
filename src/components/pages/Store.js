@@ -35,9 +35,18 @@ const Store = () => {
 
   },[])
 
-  const deleteHandler =(id)=>{
+  const deleteHandler = async(id)=>{
+   try {
+    setloading(true);
+    console.log(id)
+    await fetch(`https://movies-ada4d-default-rtdb.firebaseio.com/movies/${id}.json`,{method:"DELETE"})
       const newData = movies.filter(movie=>movie.id !== id);
       setmovies(newData)
+
+      setloading(false)
+   } catch (error) {
+    console.error("Error in deleting data",error)
+   }
   }
 
 
