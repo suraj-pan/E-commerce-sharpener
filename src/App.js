@@ -8,6 +8,11 @@ import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Store from './components/pages/Store';
 import Contact from "./components/pages/Contact";
+import ProductDetail from "./components/pages/ProductDetail";
+import Product from "./components/Product";
+import SignUp from "./components/pages/SignUp";
+import Footer from "./components/Footer";
+import Login from "./components/pages/Login";
 
 function App() {
   const productsArr = [
@@ -70,14 +75,18 @@ function App() {
     <BrowserRouter>
     <div className="w-11/12 mx-auto">
     <Header count={count} />
-  
+     
       <Routes>
         <Route path="/" element={<Home/>} />
+        <Route path="/product" element={<Product/>} exact />
         <Route path="/about" element={<About/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/store" element={<Store/>} />
+        <Route path="/signUp" element={<SignUp/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/product/:productId" element={<ProductDetail/>} />
       </Routes>
-
+`        <Footer/>`
     {/* <Cart/> */}
   {/* {productsArr.map(pro=>(
     <div>
