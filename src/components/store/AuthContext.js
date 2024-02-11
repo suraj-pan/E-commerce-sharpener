@@ -23,6 +23,15 @@ export const AuthContextProvider =(props)=>{
       localStorage.setItem('email',email)
       setToken(token)
       setEmail(email)
+      // setAutoTimeoutTimer()
+    }
+
+    const setAutoTimeoutTimer =()=>{
+      const Timer = setTimeout(()=>{
+        logoutHandler()
+      },30000)
+
+      setAutoTimeoutTimer(Timer)
     }
   
     const userIsLoggedIn = !!token
@@ -34,6 +43,8 @@ export const AuthContextProvider =(props)=>{
       localStorage.removeItem('token')
       localStorage.removeItem('email')
     }
+
+
   
   
     const contextValue = {

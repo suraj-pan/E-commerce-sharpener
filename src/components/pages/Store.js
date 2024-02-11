@@ -1,17 +1,22 @@
-import React, { useState,useEffect, useCallback } from 'react';
+import React, { useState,useEffect, useCallback, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { AuthContext } from '../store/AuthContext';
+
 
 const Store = () => {
 
   const [movies,setmovies] = useState([]);
   const [loading,setloading] = useState(false);
 
+  const authCtx = useContext(AuthContext)
+  const email = authCtx.email;
 
-
+  console.log(email);
+  
   const storeData = useCallback( async ()=>{
     try {
       setloading(true);
-      const response = await fetch("https://movies-ada4d-default-rtdb.firebaseio.com/movies.json");
+      const response = await fetch(`https://crudcrud.com/api/99c21b3ee1eb45f6836ca2595a2a4e9e/cart${email}`);
       const data = await response.json()
       console.log(data)
 
@@ -39,7 +44,7 @@ const Store = () => {
    try {
     setloading(true);
     console.log(id)
-    await fetch(`https://movies-ada4d-default-rtdb.firebaseio.com/movies/${id}.json`,{method:"DELETE"})
+    await fetch(`https://crudcrud.com/api/99c21b3ee1eb45f6836ca2595a2a4e9e/cart${email}$/{id}.json`,{method:"DELETE"})
       const newData = movies.filter(movie=>movie.id !== id);
       setmovies(newData)
 
@@ -87,7 +92,7 @@ const Store = () => {
   }
 
   const addMovieHandler = async(movie )=>{
-    const response = await fetch("https://movies-ada4d-default-rtdb.firebaseio.com/movies.json",{
+    const response = await fetch(`https://crudcrud.com/api/99c21b3ee1eb45f6836ca2595a2a4e9e/cart${email}`,{
       method: "POST",
       headers: {
         "Content-Type": "application/json",

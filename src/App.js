@@ -3,7 +3,7 @@ import "./App.css";
 import Cart from "./components/Cart";
 import {ProductContext} from './components/store/ContextApi'
 import Header from "./components/Header";
-import { BrowserRouter, Routes,Route, Navigate, useNavigate, redirect } from "react-router-dom";
+import { BrowserRouter, Routes,Route, Navigate, useNavigate } from "react-router-dom";
 import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Store from './components/pages/Store';
@@ -70,8 +70,9 @@ function App() {
 
     console.log(authCtx.isLoggedIn)
 
-    const addtocart =(product)=>{
 
+
+    const addtocart =(product)=>{
       const newProduct = {id:product.title,...product}
         setcount(count+1);
     
@@ -84,8 +85,8 @@ function App() {
     <Header count={count} />
      
       <Routes>
-        <Route path="/" element={authCtx.isLoggedIn ?(<Home/>):(<redirect to="/login"  />)} />
-        <Route path="/product" element={<Product/>} exact />
+        <Route path="/" element={(<Home/>)} />
+       
         <Route path="/about" element={<About/>} />
         <Route path="/contact" element={<Contact/>} />
       
@@ -94,6 +95,7 @@ function App() {
      {authCtx.isLoggedIn && (
       <>
       <Route path="/store" element={<Store/>} />
+      <Route path="/product" element={<Product/>} exact />
         <Route path="/logout" element={<Logout/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/changePassword" element={<ChangePassword/>} />
@@ -101,7 +103,7 @@ function App() {
       </>
      )}
       </Routes>
-`        <Footer/>`
+       <Footer/>
     {/* <Cart/> */}
   {/* {productsArr.map(pro=>(
     <div>
