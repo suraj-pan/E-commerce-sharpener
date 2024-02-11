@@ -52,7 +52,7 @@ const Login = () => {
             .then((data) => {
                 authCtx.login(data.idToken, enteredEmail)
                 alert('Login successfully')
-                navigate('/store')
+                navigate('/profile')
 
             })
             .catch((err) => {

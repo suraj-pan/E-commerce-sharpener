@@ -12,11 +12,17 @@ const Header = ({count}) => {
      <div className='flex bg-black justify-between items-center'>
      <div></div>
       <div className='flex gap-6 text-white '>
-    {authCtx.isLoggedIn && (  <>  <NavLink to='/'>Home</NavLink>
+    {authCtx.isLoggedIn ? (  <>  <NavLink to='/'>Home</NavLink>
       <NavLink to='/store' >Store</NavLink>
-      <NavLink to='/product' >Product</NavLink></> )}
-      <NavLink to='/about' >About</NavLink>     
-      <NavLink to='/signUp' >Sign-Up</NavLink>     
+      <NavLink to='/changePassword' >Change Password</NavLink>
+      <NavLink to='/product' >Product</NavLink>
+      <NavLink to='/logout' >Logout</NavLink>
+      </> ):
+      <NavLink to='/signUp' >Sign-Up</NavLink>}
+
+
+
+      <NavLink to='/about' >About</NavLink>        
       <NavLink to='/login' >Login</NavLink>     
       <NavLink to='/contact' >Contact Us</NavLink>     
        </div>

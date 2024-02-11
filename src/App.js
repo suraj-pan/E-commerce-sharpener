@@ -3,7 +3,7 @@ import "./App.css";
 import Cart from "./components/Cart";
 import {ProductContext} from './components/store/ContextApi'
 import Header from "./components/Header";
-import { BrowserRouter, Routes,Route } from "react-router-dom";
+import { BrowserRouter, Routes,Route, Navigate, useNavigate, redirect } from "react-router-dom";
 import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Store from './components/pages/Store';
@@ -13,6 +13,10 @@ import Product from "./components/Product";
 import SignUp from "./components/pages/SignUp";
 import Footer from "./components/Footer";
 import Login from "./components/pages/Login";
+import ChangePassword from "./components/pages/ChangePassword";
+import { AuthContext } from "./components/store/AuthContext";
+import Profile from "./components/pages/Profile";
+import Logout from "./components/pages/Logout";
 
 function App() {
   const productsArr = [
@@ -59,9 +63,12 @@ function App() {
     
     ];
 
-
+    
     const {addProductToCart} = useContext(ProductContext);
     const [count,setcount] = useState(0)
+    const authCtx = useContext(AuthContext);
+
+    console.log(authCtx.isLoggedIn)
 
     const addtocart =(product)=>{
 
@@ -77,14 +84,22 @@ function App() {
     <Header count={count} />
      
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={authCtx.isLoggedIn ?(<Home/>):(<redirect to="/login"  />)} />
         <Route path="/product" element={<Product/>} exact />
         <Route path="/about" element={<About/>} />
         <Route path="/contact" element={<Contact/>} />
-        <Route path="/store" element={<Store/>} />
+      
         <Route path="/signUp" element={<SignUp/>} />
         <Route path="/login" element={<Login/>} />
+     {authCtx.isLoggedIn && (
+      <>
+      <Route path="/store" element={<Store/>} />
+        <Route path="/logout" element={<Logout/>} />
+        <Route path="/profile" element={<Profile/>} />
+        <Route path="/changePassword" element={<ChangePassword/>} />
         <Route path="/product/:productId" element={<ProductDetail/>} />
+      </>
+     )}
       </Routes>
 `        <Footer/>`
     {/* <Cart/> */}
