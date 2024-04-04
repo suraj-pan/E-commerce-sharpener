@@ -15,7 +15,7 @@ const ChangePassword = () => {
         const changedata = async (token,password) => {
             try {
 
-            const response = await    fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDqssr-XYkQE5aR15B7bVhhygLUnqGrHbc', {
+            const response = await  fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDqssr-XYkQE5aR15B7bVhhygLUnqGrHbc', {
                     method: 'POST',
                     body: JSON.stringify({
                         idToken: token,
@@ -44,12 +44,12 @@ const ChangePassword = () => {
     }
     return (
         <div className='flex flex-col justify-center items-center h-[70vh] bg-slate-400' >
-            <h2 className='text-xl text-center mb-4'>Change Password</h2>
+            <h2 className='text-2xl font-bold text-center mb-4'>Change Password</h2>
             <form onSubmit={submitHandler} className='flex flex-col gap-3' >
-                <label className='flex gap-3 ' >Change Password
+                <label className='flex gap-3  text-lg font-bold' >Change Password
                     <input type='password' className='px-2 py-2 rounded-md' ref={password} placeholder='Enter the new password' />
                 </label>
-                <button className='h-[30px] w-[90px] bg-black text-white rounded-md '>submit</button>
+                <button className='h-[30px] w-[300px] bg-black text-white rounded-md '>submit</button>
             </form>
         </div>
     )

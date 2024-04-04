@@ -65,9 +65,9 @@ const Login = () => {
 
 
 return (
-    <div className='flex justify-center flex-col items-center bg-slate-500 min-h-screen' >
+    <div className='flex justify-center flex-col items-center  rounded-md bg-slate-500 min-h-screen' >
         <h1 className='text-white text-3xl mb-4' >Login</h1>
-        <div  >
+        <div   >
             <form className='flex flex-col gap-3 justify-center items-center' onSubmit={submitHandler}>
                 <label>E-mail
                     <input type='email' className='w-[290px] ml-6 rounded-md px-3 py-1' ref={emailInputRef} placeholder='Enter the Email Here...' required />

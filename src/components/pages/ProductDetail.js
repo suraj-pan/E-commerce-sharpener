@@ -1,14 +1,15 @@
 // ProductDetail.js
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Product  from '../Product';
+import { productData } from '../Product';
 
 
 
 const ProductDetail = () => {
     const { productId } = useParams();
     console.log(productId)
-   const item = Product.find((p)=>p.id === productId)
+    console.log(productData)
+   const item = productData.find((p)=>p.id == productId)
     console.log(item)
 
     if (!item) {
@@ -16,19 +17,19 @@ const ProductDetail = () => {
     }
 
     return (
-        <div>
-            {/* <h2>{product.name} - Details</h2>
+        <div className='flex flex-col bg-slate-400 h-[70vh] mx-auto justify-center items-center' >
+            <h2 className='text-2xl text-white'>{item.name} - Details</h2>
             <div>
-                {product.images.map((image, index) => (
-                    <img key={index} src={image[index]} alt={`Product ${product.id} - ${index + 1}`} />
+                {item.images.map((image, index) => (
+                    <img key={index} src={image[index]} alt={`Product ${item.id} - ${index + 1}`} />
                 ))}
             </div>
-            <h3>Reviews:</h3>
-            <ul>
-                {product.reviews.map((review, index) => (
+            <h3 className='text-xl text-white'>Reviews:</h3>
+            <ul className='text-red-100'>
+                {item.reviews.map((review, index) => (
                     <li key={index}>{review.comment}</li>
                 ))}
-            </ul> */}
+            </ul>
         </div>
     );
 };
