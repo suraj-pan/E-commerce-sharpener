@@ -5,13 +5,51 @@ export const ProductContext = createContext()
 
 
  const CartReducer =(state,action)=>{
+  console.log(state,action)
   switch(action.type){
       case "ADD_CART":
+        const existingItem= state.cart.findIndex((item)=>item.id === action.payload.id);
+        console.log(existingItem)
+        if(existingItem !== -1){
+            const updatedCart = state.cart.map((item,index)=>{
+              console.log(item)
+                return {
+                  ...item,
+                  qty:item.qty +1,
+                  price:Math.floor(item.price) * (item.qty+1),
+                 
+                }
+           
+          
+            })
+            return {...state, cart:updatedCart}
+        }else{
           return {...state,cart:[...state.cart,{...action.payload,qty:1}]}
+        };
+      
       case "REMOVE_CART":
-      return {...state,
-      cart:state.cart.filter((p)=>p.id !== action.payload.id)
-      }  
+        console.log(action)
+        const itemToRemove = state.cart.find((item)=>item.id === action.payload.id);
+        console.log(itemToRemove)
+        if(itemToRemove.qty >1){
+          
+         const updatedCart =  state.cart.map((item)=>{
+            if (item.id === action.payload.id) {
+              return {
+                ...item,
+                qty: item.qty - 1,
+                price: Math.floor(item.price) * (item.qty - 1)
+              };
+            }
+           }) 
+           console.log(updatedCart)
+           return {...state,cart:updatedCart}
+      
+        }else{
+          return { ...state,
+            cart:state.cart.filter((item)=>item.id !== action.payload.id)
+          }
+        }
       
       default:
           return state;
@@ -20,23 +58,7 @@ export const ProductContext = createContext()
 }
 
 const ContextApi = ({children}) => {
-    // const [cart,setcart]= useState([]);
 
-    // const addProductToCart = (newProduct)=>{
-    //     setcart([...cart,{newProduct}])
-    //     console.log(cart)
-    // };
-
-    // const products = [...Array(21)].map(() => ({
-    //   id: faker,
-    //   name: faker.commerce.product(),
-    //   price: faker.commerce.price(),
-    //   image: faker.image.avatar(),
-    //   inStock: faker.arrayElement([0, 3, 5, 6, 7]),
-    //   fastDelivery: faker.datatype.boolean(),
-    //   ratings: faker.arrayElement([1, 2, 3, 4, 5]),
-    // }));
-    // console.log(products)
 
 
 
@@ -45,11 +67,13 @@ const ContextApi = ({children}) => {
     })
 
     const addToCart = (item)=>{
+      console.log(item)
       dispatch({type:"ADD_CART",payload:item})
     }
 
-    const removeFromCart =(itemId)=>{
-      dispatch({type:"REMOVE_CART",payload:itemId})
+    const removeFromCart =(item)=>{
+      console.log(item)
+      dispatch({type:"REMOVE_CART",payload:item})
     }
   return (
     <ProductContext.Provider value={{cart:state.cart,addToCart,removeFromCart}}>

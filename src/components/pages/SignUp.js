@@ -63,19 +63,39 @@ const SignUp = () => {
     }
 
   return (
-    <div className='flex justify-center flex-col items-center bg-slate-500 min-h-screen' >
-      <h1 className='text-white text-3xl mb-4' >Sign-Up</h1>
-      <div  >
-        <form className='flex flex-col gap-3 justify-center items-center' onSubmit={submitHandler}>
-            <label>E-mail
-            <input type='email' className='w-[290px] ml-6 rounded-md px-3 py-1' ref={emailInputRef} placeholder='Enter the Email Here...' required />
-            </label>
-            <label>Password
-            <input type='password' className='w-[290px] ml-1 rounded-md px-3 py-1' ref={passwordInputRef} placeholder='Enter the password Here...' required />
-            </label>
-            <button className='h-[30px] rounded-lg w-[200px] bg-black text-white'  > Sign-Up</button>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-green-400 to-blue-500">
+      <div className="flex flex-col items-center bg-white p-8 rounded-md shadow-lg max-w-md w-full">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Sign-Up</h1>
+        <form className="w-full flex flex-col gap-4" onSubmit={submitHandler}>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="email" className="text-gray-700">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+              ref={emailInputRef}
+              placeholder="Enter your email..."
+              required
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="password" className="text-gray-700">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+              ref={passwordInputRef}
+              placeholder="Enter your password..."
+              required
+            />
+          </div>
+          {!isLoading && (
+            <button className="w-full p-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all">
+              Sign-Up
+            </button>
+          )}
+          {isLoading && <h3 className="text-center">Sending Request...</h3>}
         </form>
-       
       </div>
     </div>
   )

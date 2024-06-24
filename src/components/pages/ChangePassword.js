@@ -43,13 +43,13 @@ const ChangePassword = () => {
 
     }
     return (
-        <div className='flex flex-col justify-center items-center h-[70vh] bg-slate-400' >
-            <h2 className='text-2xl font-bold text-center mb-4'>Change Password</h2>
-            <form onSubmit={submitHandler} className='flex flex-col gap-3' >
-                <label className='flex gap-3  text-lg font-bold' >Change Password
-                    <input type='password' className='px-2 py-2 rounded-md' ref={password} placeholder='Enter the new password' />
+        <div className='flex flex-col justify-center items-center h-[70vh] bg-gradient-to-r from-green-100 to-green-300  p-4 sm:p-6 md:p-8' >
+            <h2 className='text-2xl font-bold text-center mb-4 sm:text-3xl md:text-4xl'>Change Password</h2>
+            <form onSubmit={submitHandler} className='flex flex-col gap-3 w-full max-w-md' >
+                <label className='flex flex-col sm:flex-row sm:items-center gap-3  text-lg font-bold' >Change Password
+                    <input type='password' className='px-2 py-2 rounded-md flex-grow' ref={password} placeholder='Enter the new password' />
                 </label>
-                <button className='h-[30px] w-[300px] bg-black text-white rounded-md '>submit</button>
+                <button className='h-[40px] w-full bg-black text-white rounded-md mt-4 sm:mt-0 sm:w-[300px] self-center '>submit</button>
             </form>
         </div>
     )

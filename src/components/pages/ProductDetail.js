@@ -1,14 +1,16 @@
 // ProductDetail.js
-import React from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { productData } from '../Product';
-
+import {ProductContext} from '../store/ContextApi';
 
 
 const ProductDetail = () => {
     const { productId } = useParams();
-    console.log(productId)
-    console.log(productData)
+    const conApi = useContext(ProductContext)
+    console.log(conApi)
+    // console.log(productId)
+    // console.log(productData)
    const item = productData.find((p)=>p.id == productId)
     console.log(item)
 
@@ -17,19 +19,22 @@ const ProductDetail = () => {
     }
 
     return (
-        <div className='flex flex-col bg-slate-400 h-[70vh] mx-auto justify-center items-center' >
-            <h2 className='text-2xl text-white'>{item.name} - Details</h2>
-            <div>
-                {item.images.map((image, index) => (
-                    <img key={index} src={image[index]} alt={`Product ${item.id} - ${index + 1}`} />
-                ))}
+        <div className='flex flex-col bg-gradient-to-r from-green-100 to-green-300 my-3 mx-auto justify-center items-center' >
+            <h2 className='text-2xl text-black'>{item.name} - Details</h2>
+            <div className='w-1/3'>
+            
+                    <img key={item.id} className='w-full  object-fill' src={item.images} alt={`Product ${item.id} -`} />
+               
             </div>
-            <h3 className='text-xl text-white'>Reviews:</h3>
-            <ul className='text-red-100'>
+            <div className='text-red-600 font-bold text-2xl'>{item.price}</div>
+            <button onClick={()=>conApi.addToCart(item)} className='bg-black my-3 text-white px-2 py-1 rounded-md'>Add to Cart</button>
+            <h3 className='text-xl text-black'>Reviews:</h3>
+            <ul className='text-red-300'>
                 {item.reviews.map((review, index) => (
                     <li key={index}>{review.comment}</li>
                 ))}
             </ul>
+           
         </div>
     );
 };

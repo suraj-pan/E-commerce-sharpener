@@ -17,47 +17,54 @@ import ChangePassword from "./components/pages/ChangePassword";
 import { AuthContext } from "./components/store/AuthContext";
 import Profile from "./components/pages/Profile";
 import Logout from "./components/pages/Logout";
+import ProtectedRoute from "./components/pages/ProtectedRoute";
+
+//// image import
+import shirt1 from "./asset/formalshirt/formal1.jpeg";
+import shirt2 from "./asset/formalshirt/formal2.jpeg";
+import shirt3 from "./asset/formalshirt/formal3.jpg";
+import shirt4 from "./asset/formalshirt/formal4.jpg";
 
 function App() {
-  const productsArr = [
+  const shirtArr = [
 
     {
 
-      title: 'Colors',
+      title: 'Blue Shirt',
 
       price: 100,
 
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
+      imageUrl: shirt1,
 
     },
 
     {
 
-      title: 'Black and white Colors',
+      title: 'pink Shirt',
 
-      price: 50,
+      price: 500,
 
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
+      imageUrl: 'https://assets.ajio.com/medias/sys_master/root/20240411/cHCa/6617bb4e05ac7d77bb031e95/-473Wx593H-467162071-black-MODEL.jpg',
 
     },
 
     {
 
-      title: 'Yellow and Black Colors',
+      title: 'Yellow shirt',
 
       price: 70,
 
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
+      imageUrl: shirt2,
 
     },
 
     {
 
-      title: 'Blue Color',
+      title: 'Blue shirt',
 
-      price: 100,
+      price: 300,
 
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
+      imageUrl: shirt3,
 
     }
 
@@ -65,7 +72,7 @@ function App() {
 
 
   const { addToCart } = useContext(ProductContext);
-  console.log(addToCart)
+  // console.log(addToCart)
   const [count, setcount] = useState(0)
   const authCtx = useContext(AuthContext);
 
@@ -73,50 +80,40 @@ function App() {
 
 
 
-  const addtocart = (product) => {
-    const newProduct = { id: product.title, ...product }
-    setcount(count + 1);
 
-    addToCart(newProduct);
-  }
 
   return (
-    <div className="h-[50vh] w-11/12 mx-auto ">
+    <div className=" max-h-full flex flex-col justify-between bg-gradient-to-r  from-green-100 to-green-300  ">
       <BrowserRouter>
-        <div >
+       
           <Header count={count} />
-
+          <div className="flex-grow" >
           <Routes>
        
 
             <Route path="/signUp" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Navigate to="/login" />} />
+             
+         
+            <Route  path="/login" element={<Login />} />
             {authCtx.isLoggedIn && (
               <>
-              <Route path="/" element={(<Home />)} />
+              <Route path="/home" element={<ProtectedRoute><Home shirtArr ={shirtArr} /></ProtectedRoute>} />
 
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-                <Route path="/store" element={<Store />} />
-                <Route path="/product" element={<Product />} exact />
-                <Route path="/logout" element={<Logout />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/changePassword" element={<ChangePassword />} />
-                <Route path="/product/:productId" element={<ProductDetail />} />
+              <Route path="/about" element={ <ProtectedRoute><About /></ProtectedRoute>} />
+              <Route path="/contact" element={ <ProtectedRoute><Contact /></ProtectedRoute>} />
+                <Route path="/store" element={<ProtectedRoute><Store /></ProtectedRoute>} />
+                <Route path="/product" element={ <ProtectedRoute><Product /></ProtectedRoute>} exact />
+                <Route path="/logout" element={ <ProtectedRoute><Logout /></ProtectedRoute>} />
+                <Route path="/profile" element={ <ProtectedRoute><Profile /></ProtectedRoute>} />
+                <Route path="/changePassword" element={ <ProtectedRoute><ChangePassword /></ProtectedRoute>} />
+                <Route path="/product/:productId" element={ <ProtectedRoute><ProductDetail /></ProtectedRoute>} />
+                <Route path="/cart" element={ <ProtectedRoute><Cart /></ProtectedRoute>} />
               </>
             )}
           </Routes>
-          <Footer />
-          {/* <Cart/> */}
-          {/* {productsArr.map(pro=>(
-    <div>
-      <div>{pro.title}</div>    
-      <img src={pro.imageUrl} />
-      <div>{pro.price}</div>
-      <button onClick={()=>addtocart(pro)}>Cart</button>
-    </div>
-  ))}    */}
-        </div>
+           </div>
+        <Footer />
       </BrowserRouter>
     </div>
   );

@@ -12,7 +12,7 @@ const Logout = () => {
         
     }
   return (
-    <div className='bg-slate-500 h-[70vh] flex justify-center items-center'>
+    <div className='bg-gradient-to-r from-green-100 to-green-300  h-[70vh] flex justify-center items-center'>
       <button onClick={logoutHandler} className='bg-black text-white px-2 py-1 rounded rounded-md' >Logout</button>
     </div>
   )
